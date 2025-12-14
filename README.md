@@ -1,1 +1,2 @@
 # hosts
+Exercitiul 2
