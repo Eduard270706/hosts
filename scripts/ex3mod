@@ -1,0 +1,19 @@
+#!/bin/bash
+
+verificare(){
+	local HOST="$1"
+	local IP="$2"
+	local DNS="$3"
+	local rez=$(dig @"$DNS" +short "$HOST")
+	if [[ -z "$rez" ]]; then
+	   echo "Nu s a putu rezolva"
+	   return 1
+	fi
+	if [[ $rez == *"$IP"* ]]; then 
+	   echo "OK"
+	else
+	   echo "eroare"
+	fi
+}
+
+verificare "$1" "$2" "$3"
