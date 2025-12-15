@@ -1,0 +1,11 @@
+#!/bin/bash
+
+cat /etc/hosts | while read ip nume _; do
+  	if [[ "$ip" == \# ]] || [[ -z "$ip" ]] || [[ "$nume" == "localhost" ]]; then
+		continue
+	fi
+	nouip=$(nslookup "$nume" | grep "Address" | tail -n 1 | awk '{print $2}')
+	if [[ -n "$nouip" ]] && [[ "ip" != "$nouip" ]]; then
+		echo "Bogus IP for <$nume> in /etc/hosts!"
+  fi
+done	
